@@ -1,0 +1,82 @@
+[
+  {
+    "key": "backend",
+    "role": "Backend Engineer",
+    "primary": ["Python", "FastAPI", "PostgreSQL"],
+    "secondary": ["Redis", "background queues", "observability"],
+    "project": "HTTP APIs and distributed job queues",
+    "adjacent": "Ruby on Rails"
+  },
+  {
+    "key": "data",
+    "role": "Data Engineer",
+    "primary": ["dbt", "Snowflake", "Airflow"],
+    "secondary": ["Apache Spark", "data contracts", "data quality"],
+    "project": "warehouse transformations and batch data pipelines",
+    "adjacent": "Tableau dashboards"
+  },
+  {
+    "key": "design",
+    "role": "Product Designer",
+    "primary": ["Figma", "design systems", "accessibility"],
+    "secondary": ["user interviews", "journey mapping", "prototyping"],
+    "project": "accessible interface design and usability testing",
+    "adjacent": "Adobe Illustrator marketing assets"
+  },
+  {
+    "key": "security",
+    "role": "Security Analyst",
+    "primary": ["SIEM", "Splunk", "incident response"],
+    "secondary": ["threat hunting", "Sigma rules", "EDR"],
+    "project": "detection triage and intrusion investigations",
+    "adjacent": "compliance documentation"
+  },
+  {
+    "key": "writing",
+    "role": "Technical Writer",
+    "primary": ["MkDocs", "developer documentation", "OpenAPI"],
+    "secondary": ["tutorial design", "style guides", "docs as code"],
+    "project": "API reference documentation and onboarding guides",
+    "adjacent": "brand copywriting"
+  },
+  {
+    "key": "success",
+    "role": "Customer Success Manager",
+    "primary": ["Gainsight", "customer onboarding", "renewals"],
+    "secondary": ["adoption metrics", "account planning", "QBR facilitation"],
+    "project": "enterprise account adoption and time-to-value programs",
+    "adjacent": "outbound lead generation"
+  },
+  {
+    "key": "reliability",
+    "role": "Site Reliability Engineer",
+    "primary": ["Kubernetes", "Terraform", "Prometheus"],
+    "secondary": ["error budgets", "incident command", "capacity planning"],
+    "project": "cloud fleet reliability and automated remediation",
+    "adjacent": "manual helpdesk support"
+  },
+  {
+    "key": "ios",
+    "role": "iOS Engineer",
+    "primary": ["Swift", "SwiftUI", "Xcode"],
+    "secondary": ["Core Data", "Instruments profiling", "VoiceOver"],
+    "project": "native iPhone applications and offline synchronization",
+    "adjacent": "Android Jetpack Compose"
+  },
+  {
+    "key": "qa",
+    "role": "QA Automation Engineer",
+    "primary": ["Playwright", "Cypress", "test automation"],
+    "secondary": ["contract testing", "test fixtures", "regression suites"],
+    "project": "browser automation and flaky-test remediation",
+    "adjacent": "manual game testing"
+  },
+  {
+    "key": "ml",
+    "role": "Machine Learning Engineer",
+    "primary": ["PyTorch", "feature pipelines", "model serving"],
+    "secondary": ["MLflow", "drift monitoring", "offline evaluation"],
+    "project": "model training and low-latency inference",
+    "adjacent": "spreadsheet analysis"
+  }
+]

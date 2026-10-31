@@ -1,0 +1,66 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '30 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: jobmatch
+          POSTGRES_PASSWORD: jobmatch
+          POSTGRES_DB: jobmatch
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd 'pg_isready -U jobmatch -d jobmatch'
+          --health-interval 5s --health-timeout 3s --health-retries 15
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd 'redis-cli ping'
+          --health-interval 5s --health-timeout 3s --health-retries 15
+    env:
+      TEST_DATABASE_URL: postgresql://jobmatch:jobmatch@127.0.0.1:5432/jobmatch
+      TEST_REDIS_URL: redis://127.0.0.1:6379/0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.6'
+          python-version: '3.12'
+      - name: Deterministic golden and integration checks
+        working-directory: backend
+        run: uv run --locked pytest -q -s -m 'not live'
+      - name: Live model gate (requires repository secret)
+        if: github.event_name != 'pull_request'
+        working-directory: backend
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RUN_LIVE_OPENAI: '1'
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo 'Live model gate skipped: OPENAI_API_KEY is not configured.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            uv run --locked pytest -q -s -m live
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Production frontend build
+        working-directory: web
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: npm ci && npm run build
