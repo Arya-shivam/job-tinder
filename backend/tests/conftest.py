@@ -1,7 +1,5 @@
 import asyncio
-import sys
 
 def pytest_asyncio_loop_factories(config, item):
-    if sys.platform == "win32":
-        return {"selector": asyncio.SelectorEventLoop}
-    return None
+    # Psycopg async connections require the selector loop on Windows; use it everywhere.
+    return {"selector": asyncio.SelectorEventLoop}
